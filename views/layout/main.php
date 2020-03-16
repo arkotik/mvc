@@ -13,10 +13,13 @@ use core\View;
 <head>
     <meta charset="UTF-8">
     <title>App</title>
+    <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-    <?= $this->render('header') ?>
-    <?= $this->render('content', compact('content')) ?>
-    <?= $this->render('footer') ?>
+    <div class="layout-wrapper">
+        <?= $this->render('header') ?>
+        <?= $this->render('content', compact('content')) ?>
+        <?= $this->render('footer') ?>
+    </div>
 </body>
 </html

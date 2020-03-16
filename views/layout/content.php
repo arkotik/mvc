@@ -6,6 +6,7 @@ use core\View;
  * @var $this View
  * @var $content string
  */
-
-echo $content;
-
+?>
+<div class="site-content">
+    <?= $content ?>
+</div>

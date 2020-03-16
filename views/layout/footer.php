@@ -1,1 +1,3 @@
-<?php
+<footer>
+    Footer
+</footer>
