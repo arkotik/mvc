@@ -21,7 +21,7 @@ class BaseModel
 
     public static function tableName()
     {
-        return Helpers::camel2id(Helpers::basename(get_called_class()));
+        return Helpers::camel2id(Helpers::basename(get_called_class()), '_');
     }
 
     public static function getTableSchema()

@@ -1,5 +1,7 @@
 <?php
 return [
+    'env' => ENV_DEV,
+    'debug' => true,
     'routes' => [
         '<controller>/<action>' => '<controller>/<action>',
         '<controller>s' => '<controller>/index',

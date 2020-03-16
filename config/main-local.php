@@ -2,8 +2,8 @@
 return [
     'db' => [
         'host' => 'localhost',
-        'dbname' => 'kursach',
-        'user' => 'root',
-        'password' => '$ud0lo\/em3'
+        'dbname' => 'simple_mvc',
+        'user' => 'sandbox',
+        'password' => 'sandbox'
     ]
 ];
