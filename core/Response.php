@@ -4,6 +4,8 @@
 namespace core;
 
 
+use controllers\SiteController;
+
 class Response
 {
     public function __construct()
@@ -12,11 +14,12 @@ class Response
     
     /**
      * @param $request Request
-     * @return array
+     * @return BaseController
      */
     public function resolve($request)
     {
-        return [];
+        require ROOT . '/controllers/SiteController.php';
+        return new SiteController('index');
     }
     
 }

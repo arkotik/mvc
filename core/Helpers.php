@@ -22,6 +22,30 @@ class Helpers
 
         return mb_strtolower(trim(str_replace('_', $separator, preg_replace($regex, $separator . '\0', $name)), $separator));
     }
+    
+    public static function id2camel($id, $separator = '-', $encoding = 'UTF-8')
+    {
+        return str_replace(' ', '', static::mb_ucwords(str_replace($separator, ' ', $id), $encoding));
+    }
+    
+    public static function mb_ucwords($string, $encoding = 'UTF-8')
+    {
+        $words = preg_split("/\s/u", $string, -1, PREG_SPLIT_NO_EMPTY);
+        
+        $titelized = array_map(function ($word) use ($encoding) {
+            return static::mb_ucfirst($word, $encoding);
+        }, $words);
+        
+        return implode(' ', $titelized);
+    }
+    
+    public static function mb_ucfirst($string, $encoding = 'UTF-8')
+    {
+        $firstChar = mb_substr($string, 0, 1, $encoding);
+        $rest = mb_substr($string, 1, null, $encoding);
+        
+        return mb_strtoupper($firstChar, $encoding) . $rest;
+    }
 
     public static function basename($path, $suffix = '')
     {

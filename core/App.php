@@ -3,6 +3,7 @@
 namespace core;
 
 use controllers\SiteController;
+use HttpException;
 use models\User;
 
 /**
@@ -42,10 +43,7 @@ class App
     public function run()
     {
         $this->request = new Request();
-        $this->response = new Response();
-        $result = $this->handleRequest();
-        var_dump($result);
-        exit();
+        echo $this->handleRequest($this->request);
 //        require ROOT . '/controllers/SiteController.php';
 //        $this->controller = new SiteController();
 //        echo $this->controller->actionIndex();
@@ -60,8 +58,23 @@ class App
         return ROOT . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . Helpers::getValue($this->config, 'layoutPath', 'layout');
     }
     
-    public function handleRequest()
+    public function handleRequest($request)
     {
-        return $this->response->resolve($this->request);
+        $this->response = new Response();
+        try {
+            $this->controller = $this->response->resolve($request);
+            return $this->controller->runAction();
+        } catch (HttpException $e) {
+            return $this->returnHttpError($e);
+        }
+    }
+    
+    /**
+     * @param $exception HttpException
+     * @return mixed
+     */
+    public function returnHttpError($exception)
+    {
+        return $exception->getMessage();
     }
 }

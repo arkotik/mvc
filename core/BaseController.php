@@ -4,16 +4,24 @@
 namespace core;
 
 
+use HttpException;
+
 class BaseController
 {
     private static $name;
 
     public $action;
     public $layout = 'main';
-    public $defaultAction = 'index';
     
     private $viewPath;
+    private $_defaultAction;
     private $view;
+    
+    public function __construct($action = null)
+    {
+        $this->action = $action;
+        $this->_defaultAction = Helpers::getValue(App::$app->config, 'defaultAction', 'index');
+    }
     
     public function getViewPath()
     {
@@ -43,6 +51,11 @@ class BaseController
         return $this;
     }
     
+    /**
+     * @param $view
+     * @param array $params
+     * @return false|string
+     */
     public function render($view, $params = [])
     {
         $content = $this->getView()->render($view, $params);
@@ -84,5 +97,25 @@ class BaseController
         }
     
         return $path;
+    }
+    
+    /**
+     * @return mixed
+     * @throws HttpException
+     */
+    public function runAction()
+    {
+        $actionName = $this->action ?? $this->_defaultAction;
+        $action = self::getActionName($actionName);
+        if (method_exists($this, $action)) {
+            return $this->$action();
+        } else {
+            throw new HttpException('Not found action', 404);
+        }
+    }
+    
+    public static function getActionName($action)
+    {
+        return 'action' . Helpers::id2Camel($action);
     }
 }
