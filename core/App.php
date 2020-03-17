@@ -16,11 +16,18 @@ class App
 {
     /** @var DbConnection */
     public static $db;
+    
     /** @var App */
     public static $app;
-
+    
+    /** @var array */
     public $config;
+    
+    /** @var BaseController */
     public $controller;
+    
+    /** @var Request */
+    public $request;
 
     public function __construct($config)
     {
@@ -31,11 +38,11 @@ class App
 
     public function run()
     {
-        require ROOT . '/controllers/SiteController.php';
-        $this->controller = new SiteController();
-        echo $this->controller->actionIndex();
-        
-//        var_dump($_SERVER['REQUEST_URI'], $_REQUEST, $_GET, $_COOKIE, $_SERVER);
+        $this->request = new Request();
+//        require ROOT . '/controllers/SiteController.php';
+//        $this->controller = new SiteController();
+//        echo $this->controller->actionIndex();
+
 //        exit();
 //        require ROOT . '/models/User.php';
 //        $user = User::findOne(['id' => 3]);

@@ -13,7 +13,7 @@ use core\View;
 <head>
     <meta charset="UTF-8">
     <title>App</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/web/assets/styles.css">
 </head>
 <body>
     <div class="layout-wrapper">
