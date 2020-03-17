@@ -28,6 +28,9 @@ class App
     
     /** @var Request */
     public $request;
+    
+    /** @var Response */
+    public $response;
 
     public function __construct($config)
     {
@@ -39,10 +42,13 @@ class App
     public function run()
     {
         $this->request = new Request();
+        $this->response = new Response();
+        $result = $this->handleRequest();
+        var_dump($result);
+        exit();
 //        require ROOT . '/controllers/SiteController.php';
 //        $this->controller = new SiteController();
 //        echo $this->controller->actionIndex();
-
 //        exit();
 //        require ROOT . '/models/User.php';
 //        $user = User::findOne(['id' => 3]);
@@ -52,5 +58,10 @@ class App
     public function getLayoutPath()
     {
         return ROOT . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . Helpers::getValue($this->config, 'layoutPath', 'layout');
+    }
+    
+    public function handleRequest()
+    {
+        return $this->response->resolve($this->request);
     }
 }

@@ -1,5 +1,6 @@
 <?php
-define('ROOT', __DIR__);
+define('ROOT', dirname(__DIR__));
+define('WEB_ROOT', __DIR__);
 define('ENV_DEV', 'dev');
 define('ENV_PROD', 'prod');
 
@@ -17,9 +18,12 @@ $config = array_merge(
     require ROOT . '/config/main-local.php'
 );
 
-define('APP_ENV', \core\Helpers::getValue($config, 'env', ENV_DEV));
-define('APP_DEBUG', \core\Helpers::getValue($config, 'debug', false));
-define('DIRECTORY_SEPARATOR', \core\Helpers::getValue($config, 'directory_separator', '/'));
+use core\App;
+use core\Helpers;
+
+define('APP_ENV', Helpers::getValue($config, 'env', ENV_DEV));
+define('APP_DEBUG', Helpers::getValue($config, 'debug', false));
+define('DIRECTORY_SEPARATOR', Helpers::getValue($config, 'directory_separator', '/'));
 
 if (APP_ENV === ENV_DEV && APP_DEBUG) {
     ini_set('display_errors', 1);
@@ -27,4 +31,4 @@ if (APP_ENV === ENV_DEV && APP_DEBUG) {
     error_reporting(E_ALL);
 }
 
-(new \core\App($config))->run();
+(new App($config))->run();
